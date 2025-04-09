@@ -1,0 +1,367 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    background-color: #002e36;
+    color: white;
+    position: relative;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+header h1 {
+    font-weight: 500;
+    position: absolute;
+    top: 60%;
+    left: 50px;
+    transform: translate(0, -40%);
+    cursor: default;
+    font-size: 28px;
+}
+
+.main-center {
+    width: 100%;
+    height: 54px;
+    /* background-color: rgb(46, 107, 160); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-center-center {
+    width: 98%;
+    height: 100%;
+    /* background-color: rgb(65, 84, 100); */
+    display: flex;
+    align-items: center;
+}
+
+.but-main-canter {
+    padding: 0 20px 0 20px;
+    height: 100%;
+    /* background-color: rgb(114, 114, 114); */
+    position: relative;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.but-main-canter h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 20px;
+    color: rgb(43, 42, 42);
+    transition: 300ms ease;
+}
+
+.but-main-center-bottom {
+    width: 100%;
+    height: 4px;
+    border-radius: 3.5px;
+    background-color: rgb(0, 133, 179);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transition: 300ms ease;
+}
+
+.but-main-canter:hover .but-main-center-bottom {
+    background-color: rgb(0, 79, 108);
+}
+
+.but-main-canter:hover h1 {
+    color: rgb(43, 42, 42);
+}
+
+.but-main-center-ready .but-main-center-bottom {
+    background-color: rgb(219, 219, 219);
+}
+
+.but-main-center-ready h1 {
+    color: rgb(100, 100, 100);
+}
+
+.generel-but-main-center {
+    width: max-content;
+    height: 100%;
+}
+
+.menu-but {
+    width: 20px;
+    height: 20px;
+    /* background-color: rgb(0, 0, 0); */
+    position: absolute;
+    left: 15px;
+    top: 20px;
+}
+
+.m-but {
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 4px;
+}
+
+/* main */
+
+main {
+    width: 100%;
+    height: 70%;
+    /* background-color: blueviolet; */
+    position: absolute;
+    overflow: scroll;
+    background-color: rgb(248, 248, 248);
+}
+
+.main-tab {
+    /* width: 80%; */
+    height: 96%;
+    /* background-color: brown; */
+    position: absolute;
+    left: 2%;
+    top: 2%;
+}
+
+.tab {
+    width: 100%;
+    height: 27.5px;
+    border-radius: 6px;
+    background-color: white;
+    border: 1px solid rgb(204, 213, 222);
+    box-shadow: rgb(204, 213, 222) 0px 2px 4px 0px;
+    cursor: pointer;
+    margin-top: 5px;
+    position: relative;
+    /* overflow: visible; */
+    overflow: hidden;
+    transition: 500ms ease;
+}
+
+.tab-general {
+    width: 100%;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.tab-section {
+    height: 100%;
+    padding: 0 20px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid black; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+}
+
+.id {
+    width: 50px;
+    font-weight: bold;
+    color: rgb(0, 104, 141);
+}
+
+.name {
+    width: 270px;
+    height: 100%;
+    padding: 0 25px 0 5px;
+    display: flex;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+    /* border: 1px solid black; */
+}
+
+.statusR {
+    /* padding: 0 20px 0 20px; */
+    width: 85px;
+    background-color: rgba(0, 128, 0, 0.4);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    /* opacity: 0.2; */
+}
+
+.statusO {
+    /* padding: 0 20px 0 20px; */
+    width: 85px;
+    background-color: rgba(128, 0, 0, 0.4);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    /* opacity: 0.2; */
+}
+
+.status-and {
+    margin-left: 7px;
+    padding: 0 20px 0 20px;
+    height: 100%;
+    background-color: rgb(172, 0, 0, 0.4);
+    border-radius: 10px;
+    font-weight: 600;
+    outline: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: none;
+    font-size: 16px;
+}
+
+.from-time {}
+
+.from-time input {
+    outline: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.till-time {}
+
+.till-time input {
+    outline: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.location {}
+
+.location input {
+    width: 250px;
+    height: 100%;
+    border: 0;
+    outline: none;
+    background-color: hsl(0, 0%, 95%);
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+}
+
+.price {
+    font-weight: 400;
+}
+
+.top-tab {
+   
+}
+/* width: 100%;
+    height: 25px;
+    border-radius: 6px;
+    background-color: white;
+    border: 1px solid rgb(204, 213, 222);
+    box-shadow: rgb(204, 213, 222) 0px 2px 4px 0px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 5px; */
+.bottom-tab {
+    width: 100%;
+    height: 60px;
+    left: 0;
+    top: 35px;
+    position: absolute;
+    background-color: rgb(230, 230, 230);
+    /* z-index: ; */
+    
+}
+
+.bottom-tab textarea {
+    /* background-color: transparent; */
+    border: 0;
+    outline: none;
+    width: 96%;
+    height: 80%;
+    position: absolute;
+    top: 10%;
+    left: 2%;
+    resize: none;
+    font-size: 18px;
+}
+
+.off {
+    background-color: rgb(172, 0, 0, 0.4);
+}
+
+.load-Has {
+    background-color: rgba(255, 153, 1, 0.4)
+}
+
+.Sleeping {
+    background-color: rgba(18, 1, 255, 0.4)
+}
+
+.Completing {
+    background-color: rgba(111, 151, 0, 0.4)
+}
+
+.XRM {
+    background-color: rgba(151, 0, 118, 0.4)
+
+}
+
+.No-info {
+    background-color: rgba(145, 145, 145, 0.4)
+}
+
+.Deadhead {
+    background-color: rgba(151, 0, 0, 0.4)
+}
+
+
+.creat-div {
+    width: 500px;
+    height: 50px;
+    position: absolute;
+    left: -500px;
+    bottom: 70px;
+    background-color: rgb(238, 238, 238);
+    display: flex;
+    align-items: center;
+    transition: 400ms ease;
+}
+
+.creat {
+    width: 15px;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    right: -15px;
+}
+
+#name-creat {
+    width: 250px;
+    height: 30px;
+    border: none;
+    padding: 0 0 0 10px;
+    margin-left: 50px;
+    outline: none;
+}
+
+#id-delet {
+    width: 50px;
+    height: 30px;
+    border: none;
+    padding: 0 0 0 10px;
+    margin-left: 20px;
+    outline: none;
+}
+
+.name-creat {
+    width: 30px;
+    height: 30px;
+}
+
+.id-delet {
+    width: 30px;
+    height: 30px;
+}
