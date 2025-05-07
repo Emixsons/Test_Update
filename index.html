@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update</title>
+    <link rel="icon" type="image/x-icon" href="./css/img/Frame 150.jpg">
     <link rel="stylesheet" href="./css/general.css">
 </head>
 
@@ -17,73 +18,112 @@
         </div>
         <h1>Update-United Team</h1>
     </header>
-    <div class="main-center">
-        <div class="main-center-center">
-            <div class="but-main-canter">
-                <h1>Tokssa</h1>
-                <div class="but-main-center-bottom"></div>
+    <aside>
+        <div class="aside-scroll">
+            <div class="setting-position">
+                <h1>Setting Position</h1>
+                <!-- <label class="checkbox-setting-position">
+                    <input type="checkbox" id="" class="" />
+                    Filters
+                </label>
+                <label class="checkbox-setting-position">
+                    <input type="checkbox" id="" class="" />
+                    Filters
+                </label> -->
+                <h2>Filters Position</h2>
+                <label class="custom-radio">
+                    <input type="radio" name="filters" value="outside" checked>
+                    <span class="radio-mark"></span>
+                    Filter outside
+                </label>
+                <label class="custom-radio">
+                    <input type="radio" name="filters" value="inside">
+                    <span class="radio-mark"></span>
+                    Filter inside
+                </label>
             </div>
-            <div class="but-main-canter but-main-center-ready">
-                <h1>VIK</h1>
-                <div class="but-main-center-bottom"></div>
-            </div>
-            <div class="generel-but-main-center">
-                <!-- <div class="but-main-center-bottom"></div> -->
+            <div class="setting-design">
+                <h1>Setting Design</h1>
+                <div class="slider-wrapper">
+                    <label for="opacity-slider">Opacity:</label>
+                    <input type="range" id="mySlider" min="0" max="1" step="0.1" value="0.5">
+                    <span id="slider-value">0.5</span>
+                </div>
+                
             </div>
         </div>
+    </aside>
+    <div class="main-center">
+        <div class="main-center-center">
+
+        </div>
+        <div class="add-company-but">∥</div>
     </div>
+    <!-- checked -->
+    <div class="center-filter FilterBox">
+        <div style="display: flex;">
+            <button class="filters">Filter</button>
+            <div class="positionMenu">
+                <img src="./css/img/Frame 151.svg" data-align="flex-start" title="Слева" />
+                <img src="./css/img/Frame 152.svg" data-align="center" title="По центру" />
+                <img src="./css/img/Frame 153.svg" data-align="flex-end" title="Справа" />
+            </div>
+        </div>
+        <div class="checkbox-container">
+            <label class="custom-checkbox-off custom-checkbox">
+                <input type="checkbox" id="custom-checkbox-Off" class="custom-checkbox-Off" />
+                Off
+            </label>
+            <label class="custom-checkbox-Ready custom-checkbox">
+                <input type="checkbox" id="custom-checkbox-Ready" class="custom-checkbox-Ready" />
+                Ready
+            </label>
+            <label class="custom-checkbox-LoadHas custom-checkbox">
+                <input type="checkbox" id="custom-checkbox-LoadHas" class="custom-checkbox-LoadHas" />
+                Load Has
+            </label>
+            <label class="custom-checkbox-Sleeping custom-checkbox">
+                <input type="checkbox" id="custom-checkbox-Sleeping" class="custom-checkbox-Sleeping" />
+                Sleeping
+            </label>
+            <label class="custom-checkbox-Completing custom-checkbox">
+                <input type="checkbox" id="custom-checkbox-Completing" class="custom-checkbox-Completing" />
+                Completing
+            </label>
+            <label class="custom-checkbox-XRM custom-checkbox">
+                <input type="checkbox" id="custom-checkbox-XRM" class="custom-checkbox-XRM" />
+                XRM
+            </label>
+            <label class="custom-checkbox-NoInfo custom-checkbox">
+                <input type="checkbox" id="custom-checkbox-NoInfo" class="custom-checkbox-NoInfo" />
+                No Info
+            </label>
+            <label class="custom-checkbox-Deadhead custom-checkbox">
+                <input type="checkbox" id="custom-checkbox-Deadhead" class="custom-checkbox-Deadhead" />
+                Deadhead
+            </label>
+        </div>
+        
+    </div>
+    <div class="center-filter-anim">▲</div>
     <main>
         <div class="main-tab">
-            <!-- <div class="tab">
-                <div class="tab-general">
-                    <div class="id tab-section">
-                        <p>1</p>
-                    </div>
-                    <div class="name">
-                        <p>Oleksandr Pryymachuk</p>
-                    </div>
-                    <div class="statusR tab-section">
-                        <p>Ready</p>
-                    </div>
-                    <select class="status-and">
-                        <option>No</option>
-                        <option>Load Has</option>
-                        <option>Sleeping</option>
-                        <option>Completing</option>
-                        <option>XRM</option>
-                        <option>No info</option>
-                        <option>Deadhead</option>
-                    </select>
-                    <div class="from-time tab-section">
-                        <input type="time" value="">
-                    </div>
-                    <div class="till-time tab-section">
-                        <input type="time" value="">
-                    </div>
-                    <div class="location tab-section">
-                        <p>Kenosha</p>
-                    </div>
-                </div>
-                <div class="bottom-tab">
-                    <textarea></textarea>
-                </div>
-            </div> -->
 
         </div>
     </main>
     <div class="creat-div">
+        <!-- <form> -->
         <input id="name-creat" type="text" placeholder="Name">
         <button class="name-creat">+</button>
+        <!-- </form> -->
+        <!-- <form> -->
         <input id="id-delet" type="text" placeholder="id">
         <button class="id-delet">-</button>
+        <!-- </form> -->
         <button class="creat">></button>
     </div>
 
-
-
-
-
-    <script src="./js/general.js"></script>
+    <script type="module" src="./js/general.js"></script>
 </body>
 
 </html>
