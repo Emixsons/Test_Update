@@ -17,7 +17,35 @@
             <div class="m-but"></div>
         </div>
         <h1>Update-United Team</h1>
+        <div class="admins"></div>
     </header>
+    <!-- <div class="sign-up-sistem">
+        <div class="panel">
+            <from>
+                <input type="text" class="name-admin">
+                <input type="password" class="passwords">
+                <button></button>
+            </from>
+        </div>
+    </div> -->
+    <div class="navbar">
+
+        <div class="login-container">
+            <h2>Login</h2>
+            <div id="message" class="error-message"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="login-button">Login</button>
+            </form>
+        </div>
+    </div>
     <aside>
         <div class="aside-scroll">
             <div class="setting-position">
@@ -32,7 +60,7 @@
                 </label> -->
                 <h2>Filters Position</h2>
                 <label class="custom-radio">
-                    <input type="radio" name="filters" value="outside" checked>
+                    <input type="radio" name="filters" value="outside">
                     <span class="radio-mark"></span>
                     Filter outside
                 </label>
@@ -49,8 +77,193 @@
                     <input type="range" id="mySlider" min="0" max="1" step="0.1" value="0.5">
                     <span id="slider-value">0.5</span>
                 </div>
-                
+                <div class="slider-Comfort">
+                    <label for="mySliderComfort">Comfort Filter:</label>
+                    <input type="range" id="mySliderComfort" min="0" max="1" step="0.1" value="0.0">
+                    <span id="slider-Comfort-value">0.0</span>
+                </div>
             </div>
+            <div class="setting-theme">
+                <h1>Theme</h1>
+                <div class="theme">
+                    <div class="theme-classic theme-box theme-box-ready">
+                        <div class="designers">
+                            <div class="main-theme">
+                                <div class="main-theme-box">
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status2"></div>
+                                            <div class="main-box-LG2"></div>
+                                            <div class="main-box-ID2"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status2"></div>
+                                            <div class="main-box-LG2"></div>
+                                            <div class="main-box-ID2"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aside-theme"></div>
+                            <div class="header-theme"></div>
+                        </div>
+                        <h3>Classic <span></span></h3>
+                    </div>
+                    <div class="theme-dark theme-box">
+                        <div class="designers">
+                            <div class="main-theme">
+                                <div class="main-theme-box">
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status2"></div>
+                                            <div class="main-box-LG2"></div>
+                                            <div class="main-box-ID2"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status2"></div>
+                                            <div class="main-box-LG2"></div>
+                                            <div class="main-box-ID2"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aside-theme"></div>
+                            <div class="header-theme"></div>
+                        </div>
+                        <h3>Dark <span></span></h3>
+                    </div>
+                    <div class="theme-Poisonous theme-box">
+                        <div class="designers">
+                            <div class="main-theme">
+                                <div class="main-theme-box">
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status2"></div>
+                                            <div class="main-box-LG2"></div>
+                                            <div class="main-box-ID2"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status"></div>
+                                            <div class="main-box-LG"></div>
+                                            <div class="main-box-ID"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                    <div class="main-box">
+                                        <div class="main-box-top">
+                                            <div class="main-box-status2"></div>
+                                            <div class="main-box-LG2"></div>
+                                            <div class="main-box-ID2"></div>
+                                        </div>
+                                        <div class="main-box-buttom"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aside-theme"></div>
+                            <div class="header-theme"></div>
+                        </div>
+                        <h3>Poisonous <span></span></h3>
+                    </div>
+                    <div class="theme-red theme-box"></div>
+                    <div class="theme-green theme-box"></div>
+                    <div class="theme-yellow theme-box"></div>
+                </div>
+
+            </div>
+            <!-- <div class="setting-history">
+                <h1>History</h1>
+                <div class="history">
+                    <div class="history-checkbox">
+
+                    </div>
+                    <div class="data-time-histary">
+                        <label>From Date: <input type="date"></label>
+                        <label>To Date: <input type="date"></label>
+                        <label>From Time: <input type="time"></label>
+                        <label>To Time: <input type="time"></label>
+                        <label>Filter by Name: <input type="text" class="name-filter" placeholder="Enter name"></label>
+                    </div>
+
+                    <div class="text-histary">
+
+                    </div>
+                </div>
+            </div> -->
         </div>
     </aside>
     <div class="main-center">
@@ -103,7 +316,7 @@
                 Deadhead
             </label>
         </div>
-        
+
     </div>
     <div class="center-filter-anim">▲</div>
     <main>
@@ -122,7 +335,7 @@
         <!-- </form> -->
         <button class="creat">></button>
     </div>
-
+    <div class="comford"></div>
     <script type="module" src="./js/general.js"></script>
 </body>
 

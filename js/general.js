@@ -1,19 +1,11 @@
 let mainTab = document.querySelector('.main-tab')
-
-// let timeString
-// function updateClock() {
-//     let now = new Date();
-//     let hours = String(now.getHours()).padStart(2, '0');
-//     let minutes = String(now.getMinutes()).padStart(2, '0');
-//     let seconds = String(now.getSeconds()).padStart(2, '0');
-//     timeString = `${hours}:${minutes}:${seconds}`;
-
-// }
-
-// setInterval(updateClock, 60000); // обновлять каждую секунду
-// updateClock();
-
+document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") {
+        location.reload();
+    }
+});
 /////////////////////// хранилище ///////////////////////
+
 let generalMasiv = []
 let masivfilter = []
 let filterReadyReady = []
@@ -23,10 +15,12 @@ let filters = []
 let company = []
 let companyFilter = []
 let companyTrue = []
+let admins = ''
 
 /////////////////////// ---------- ///////////////////////
 
 /////////////////////// обновления часов ///////////////////////
+
 function hasTimePassed(tillTimes) {
     const [targetHours, targetMinutes] = tillTimes.split(':').map(Number);
 
@@ -52,20 +46,18 @@ function updateTillTime() {
         }
     });
 }
-
 setInterval(updateTillTime, 10000); // обновлять каждую секунду
+
 /////////////////////// ---------- ///////////////////////
 
-
-//////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////
+// →→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→ //
+// →→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→ //
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 /////////////////////// Конфигурация Firebase ///////////////////////
+
 const firebaseConfig = {
     apiKey: "AIzaSyBZNS6meqgFrhKhXBZc3spCMHK9hGvSuZ0",
     authDomain: "tokssaupdate.firebaseapp.com",
@@ -75,12 +67,19 @@ const firebaseConfig = {
     appId: "1:37522886443:web:ffe41cf86d55f902453f6e",
     measurementId: "G-29QKNF40NH"
 };
+
 /////////////////////// ---------- ///////////////////////
 
+
 /////////////////////// Инициализация Firebase ///////////////////////
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
 /////////////////////// ---------- ///////////////////////
+
+// →→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→ //
+// →→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→ //
 
 /////////////////////// Создания новой компании ///////////////////////
 async function saveDataCompany(name) {
@@ -94,17 +93,19 @@ async function saveDataCompany(name) {
         console.error("Ошибка при сохранении данных:", e);
     }
     listenToDataCompany()
-    saveCompanyTrue()
 }
 /////////////////////// ---------- ///////////////////////
 
 /////////////////////// Сохранение в Логальную базу масив Компании ///////////////////////
+
 function saveCompanyTrue() {
-    localStorage.setItem("CompanyTrue", JSON.stringify(companyTrue));
+    localStorage.setItem("CompanyTrue", JSON.stringify(companyFilter));
 }
+
 /////////////////////// ---------- ///////////////////////
 
 /////////////////////// Обнаруживает изменения в базе ///////////////////////
+
 function filterCompanyTrue() {
     if (companyFilter.length === companyTrue.length) {
         companyFilter = companyTrue
@@ -119,9 +120,11 @@ function filterCompanyTrue() {
         localStorage.setItem("CompanyTrue", JSON.stringify(companyFilter));
     }
 }
+
 /////////////////////// ---------- ///////////////////////
 
 /////////////////////// Получение всех компаний ///////////////////////
+
 function listenToDataCompany() {
     const q = collection(db, "company");
     onSnapshot(q, (snapshot) => {
@@ -135,10 +138,11 @@ function listenToDataCompany() {
                 t: false,
             },)
         });
+
         const dataCompanyTrue = localStorage.getItem('CompanyTrue')
+
         if (JSON.parse(dataCompanyTrue)) {
             companyTrue = JSON.parse(dataCompanyTrue)
-
             filterCompanyTrue()
         } else {
             saveCompanyTrue()
@@ -146,7 +150,9 @@ function listenToDataCompany() {
         CompanyMenuCreat()  // вызываем перерисовку сайта
         startFilterC()
     });
+
 }
+
 /////////////////////// ---------------- ///////////////////////
 
 /////////////////////// Удаления компаний а также драйверов ///////////////////////
@@ -212,6 +218,7 @@ function CompanyMenuCreat() {
         changeColorStatus(parseFloat(slider.value))
         // swap ----------- //
     });
+
     let butMainCanterBut = document.querySelectorAll('.but-main-canter')
     let butMainCanterButH1 = document.querySelectorAll('.but-main-canter h1')
 
@@ -238,14 +245,10 @@ function CompanyMenuCreat() {
                     saveCompanyTrue()
                 }
             });
-            listenToData()
+            listenToData(butMainCanterButH1[index].innerHTML)
         })
     });
-    console.log(companyFilter);
 }
-
-
-let tabs2 = document.querySelectorAll('.but-main-canter')
 
 // Событие начала перетаскивания
 function dragStartC(e) {
@@ -323,10 +326,7 @@ function saveToLocalStorageC() {
 function startFilterC() {
     companyFilter.forEach((init) => {
         company.push(init)
-        // company.sort((a, b) => a.name.localeCompare(b.name));
     });
-    console.log(company);
-    console.log(companyFilter);
 
     loadFromLocalStorageC();
     CompanyMenuCreat()
@@ -335,7 +335,9 @@ function startFilterC() {
 /////////////////////// ---------- ///////////////////////
 
 /////////////////////// добовления компаний и логига действия ///////////////////////
+
 let addCompanyBut = document.querySelector('.add-company-but') // берем кнопку
+
 addCompanyBut.onclick = (() => { // датчик нажатия на кнопку
     let trueFalseMenuCompany = confirm(`Для добовления нажмите → ОК
 Для удаления нажмите → Отмена`) // текс для опроса для выбора между удалением и добовлением
@@ -371,6 +373,7 @@ addCompanyBut.onclick = (() => { // датчик нажатия на кнопк�
 /////////////////////// ---------- ///////////////////////
 
 /////////////////////// Создание нового драйвера ///////////////////////
+
 async function saveData(name, company) {
     const userData = {
         id: Math.random(),
@@ -384,6 +387,7 @@ async function saveData(name, company) {
         company: company,
         LongIsland: true,
         queue: '',
+        queueColor: '',
     }; // таблица ключей для сохранения в базу данных 
     try {
         const docRef = doc(collection(db, "masiv"));
@@ -392,21 +396,33 @@ async function saveData(name, company) {
         console.error("Ошибка при сохранении данных:", e);
     }
 }
+
 /////////////////////// ---------- ///////////////////////
 
 /////////////////////// Получения драйверов через базу данных ///////////////////////
-function listenToData() {
+
+function listenToData(nameDriver) {
     const q = collection(db, "masiv");
     let g = '' // для филтра компаний 
     onSnapshot(q, (snapshot) => {
         masivfilter = []; // очищаем старый массив
         masiv = [] // очищаем старый массив
         masivOff = []
-        companyTrue.forEach(element => { // поиск включенных компаний
+        let hih = 0
+        listenToDataCompany()
+        company.forEach((element, id) => { // поиск включенных компаний
             if (element.t) {
                 g = element.name // сохранения включенных компаний
+            } else {
+                hih += 1
+                if (hih == company.length) {
+                    company[0].t = true
+                    g = company[0].name
+                    saveCompanyTrue()
+                }
             }
         });
+        CompanyMenuCreat()
         snapshot.forEach((doc) => { // получения данных 
             let data = doc.data(); // получаем данные
             if (data.company == g) { // фильтрования и добовления с базы данных драйверов
@@ -423,6 +439,7 @@ function listenToData() {
                     company: doc.data().company,
                     LongIsland: doc.data().LongIsland,
                     queue: doc.data().queue,
+                    queueColor: doc.data().queueColor,
                 },) // кидает в масив для фильтрации
             }
             generalMasiv.push({
@@ -438,8 +455,10 @@ function listenToData() {
                 company: doc.data().company,
                 LongIsland: doc.data().LongIsland,
                 queue: doc.data().queue,
+                queueColor: doc.data().queueColor,
             },) // нужен для удаления компаний с их нимим драйверами
         });
+
         startFilter(); // вызываем перерисовку сайта
     });
 }
@@ -676,9 +695,9 @@ function changeColorStatus(colors) {
         elements.forEach(el => {
             el.style.backgroundColor = colorMap[className];
             if (colors >= 0.8) {
-                el.style.color = 'white'
+                el.style.color = '#bebebe'
             } else {
-                el.style.color = 'black'
+                el.style.color = 'var(--status)'
             }
         });
     }
@@ -713,6 +732,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let draggedEl = null;
 let draggedIndex = null;
 
+let colorQueue = ['rgba(255, 0, 0, 0.534)', 'rgba(255, 145, 0, 0.534)', 'rgba(10, 124, 0, 0.534)', 'rgba(0, 12, 124, 0.534)', 'rgba(124, 0, 103, 0.534)']
 ////////////////////////////////////////////// СОЗДАНИЯ ЯЧЕЕК ТАБЛИЦЫ //////////////////////////////////////////////
 ////////////////////////////////////////////// СОЗДАНИЯ ЯЧЕЕК ТАБЛИЦЫ //////////////////////////////////////////////
 ////////////////////////////////////////////// СОЗДАНИЯ ЯЧЕЕК ТАБЛИЦЫ //////////////////////////////////////////////
@@ -792,7 +812,6 @@ function start() {
             input.statu = true
         }
         var LongIsland = document.createElement('div')
-        LongIsland.innerHTML = 'Long Island'
 
         var fromTime = document.createElement('div')
         var fromInput = document.createElement('input')
@@ -840,12 +859,28 @@ function start() {
         var location = document.createElement('div')
         var localInput = document.createElement('input')
         localInput.setAttribute('type', 'text')
-        localInput.value = input.location
+        // localInput.value = input.location
+
+        function formatLocation(location) {
+            let parts = location.trim().split(',');
+            let city = parts[0].toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+
+            if (parts.length === 2) {
+                let state = parts[1].trim().toUpperCase();
+                return `${city}, ${state}`;
+            } else {
+                return city;
+            }
+        }
+        localInput.value = formatLocation(input.location);
+
         localInput.addEventListener('change', function (a) {
             input.location = a.target.value
             updateData(input.idPass, { location: a.target.value, })
             start()
         })
+        // Queue // Queue // Queue // Queue //
+
         let queue = document.createElement('div')
         let queueInput = document.createElement('input')
         queueInput.value = input.queue
@@ -855,6 +890,21 @@ function start() {
             start()
         })
         queueInput.setAttribute('maxlength', '2')
+        if (input.queueColor == '') {
+            queueInput.style.backgroundColor = '#7b969b'
+        } else {
+            queueInput.style.backgroundColor = input.queueColor
+        }
+
+        let QueueLeft = document.createElement('div')
+        let QueueLeftBox1 = document.createElement('div')
+        let QueueLeftBox2 = document.createElement('div')
+        let QueueLeftBox3 = document.createElement('div')
+        let QueueLeftBox4 = document.createElement('div')
+        let QueueLeftBox5 = document.createElement('div')
+        let QueueLeftClear = document.createElement('div')
+
+        // Queue // Queue // Queue // Queue //
         let ulLocal = document.createElement('ul')
         // Creat Notes
         var bottomTab = document.createElement('div')
@@ -964,9 +1014,18 @@ function start() {
         menuMousemoveGeneralDelet.classList.add('menuMousemoveGeneralDelet')
         ulLocal.classList.add('autocomplete-list')
         LongIsland.classList.add('LongIsland')
+        QueueLeft.classList.add('QueueLeft')
+        QueueLeftBox1.classList.add('QueueLeftBox1', 'QueueLeftBox')
+        QueueLeftBox2.classList.add('QueueLeftBox2', 'QueueLeftBox')
+        QueueLeftBox3.classList.add('QueueLeftBox3', 'QueueLeftBox')
+        QueueLeftBox4.classList.add('QueueLeftBox4', 'QueueLeftBox')
+        QueueLeftBox5.classList.add('QueueLeftBox5', 'QueueLeftBox')
+        QueueLeftClear.classList.add('QueueLeftClear', 'QueueLeftBox')
         if (input.LongIsland) {
+            LongIsland.innerHTML = 'Long Island ✔'
             LongIsland.classList.add('Ready')
         } else {
+            LongIsland.innerHTML = 'Long Island ⨉'
             LongIsland.classList.add('off')
         }
         let hr = document.createElement('hr')
@@ -979,7 +1038,8 @@ function start() {
         fromTime.append(fromInput)
         tillTime.append(tillInput)
         location.append(localInput)
-        queue.append(queueInput)
+        queue.append(queueInput, QueueLeft)
+        QueueLeft.append(QueueLeftBox1, QueueLeftBox2, QueueLeftBox3, QueueLeftBox4, QueueLeftBox5, QueueLeftClear)
         statusAnd.append(options1, options8, options2, options3, options4, options5, options6, options7,)
         localInput.addEventListener("input", async function () {
             const query = localInput.value.trim();
@@ -1105,6 +1165,110 @@ function start() {
         LongIsland.addEventListener('touchend', () => {
             clearTimeout(holdTimer);
         });
+
+        let stylesQueueLeft = getComputedStyle(QueueLeft);
+        let widthQueueLeft = parseFloat(stylesQueueLeft.width); // получаем ширину
+        let leftQueueLeft = parseFloat(stylesQueueLeft.left);   // получаем позицию слева
+        // let QueueLeftBox = document.querySelectorAll('.QueueLeftBox')
+
+        // Пример проверки — открыть/закрыть меню
+
+        const animationDuration2 = 500;
+
+        function QueueLeftBut() {
+            stylesQueueLeft = getComputedStyle(QueueLeft);
+            widthQueueLeft = parseFloat(stylesQueueLeft.width);
+            leftQueueLeft = parseFloat(stylesQueueLeft.left);
+
+            if (widthQueueLeft == 20 || leftQueueLeft == 5) {
+                QueueLeft.style.left = '-150px'
+                QueueLeft.style.width = '150px'
+                // открыть меню
+            } else {
+                QueueLeft.style.left = '5px'
+                QueueLeft.style.width = '20px'
+                // закрыть меню
+            }
+        }
+
+        queueInput.addEventListener('mousedown', () => {
+            holdTimer = setTimeout(() => {
+                QueueLeftBut();
+            }, animationDuration2);
+        });
+
+        queueInput.addEventListener('mouseup', () => {
+            clearTimeout(holdTimer); // Если отпустил раньше — сброс
+        });
+
+        queueInput.addEventListener('mouseleave', () => {
+            clearTimeout(holdTimer); // Если ушёл курсором — сброс
+        });
+
+        queueInput.addEventListener('dblclick', () => {
+            QueueLeftBut(); // Двойной клик сразу вызывает функцию, без задержки
+        });
+
+        // Для мобильных:
+        queueInput.addEventListener('touchstart', () => {
+            holdTimer = setTimeout(() => {
+                QueueLeftBut();
+            }, animationDuration2);
+        });
+
+        queueInput.addEventListener('touchend', () => {
+            clearTimeout(holdTimer);
+        });
+
+
+        QueueLeftBox1.onclick = (() => {
+            updateData(input.idPass, { queueColor: '#ff7777', })
+            // start()
+        })
+        QueueLeftBox2.onclick = (() => {
+            updateData(input.idPass, { queueColor: '#ffc477', })
+            // start()
+        })
+        QueueLeftBox3.onclick = (() => {
+            updateData(input.idPass, { queueColor: '#7cb977', })
+            // start()
+        })
+        QueueLeftBox4.onclick = (() => {
+            updateData(input.idPass, { queueColor: '#777db9', })
+            // start()
+        })
+        QueueLeftBox5.onclick = (() => {
+            updateData(input.idPass, { queueColor: '#b977ae', })
+            // start()
+        })
+        QueueLeftClear.onclick = (() => {
+            updateData(input.idPass, { queueColor: '', })
+            // start()
+        })
+        // let mainsClick = document.querySelector('main')
+
+        // mainsClick.onclick = (() => {
+        // QueueLeftBut()
+        // })
+
+
+        // QueueLeft.onclick = (() => {
+        //     // Назначаем обработчики только один раз
+        //     const QueueLeftBox = document.querySelectorAll('.QueueLeftBox');
+        //     QueueLeftBox.forEach((element, id) => {
+        //         // Привязываем обработчик клика для каждого элемента
+        //         element.onclick = (() => {
+        //             const bgColor = getComputedStyle(element).backgroundColor;
+        //             updateData(input.idPass, { queueColor: bgColor, })
+        //             start()
+        //             // queueInput.style.backgroundColor = bgColor;
+        //         });
+        //     });
+
+        //     // Вызов функции, если необходимо
+        //     QueueLeftBut();
+        // });
+
         /////////////// -------------------------------------- ///////////////
     });
 
@@ -1398,11 +1562,30 @@ let FilterBox = document.querySelector('.FilterBox')
 let SettingPosition = document.querySelector('.setting-position')
 let FilterCheckBox = document.querySelectorAll('.custom-checkbox')
 let SettingDesign = document.querySelector('.setting-design')
+let SettingTheme = document.querySelector('.setting-theme')
+// let SettingHistory = document.querySelector('.setting-history')
 
 let setting = {
     filters: 'outside',
+    theme: 'Classic',
+}
+function syncSettings(withSave = false) {
+    const key = 'myAppSettings';
+
+    if (withSave) {
+        // Сохраняем в localStorage
+        localStorage.setItem(key, JSON.stringify(setting));
+    } else {
+        // Загружаем из localStorage, если есть
+        const stored = localStorage.getItem(key);
+        if (stored) {
+            setting = JSON.parse(stored);
+        }
+    }
+
 }
 
+syncSettings();
 // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ //
 let filterOnOff = {
     centerFilter: true,
@@ -1415,7 +1598,7 @@ let mainCenter = document.querySelector('.main-center')
 let CenterFilterAnim = document.querySelector('.center-filter-anim')
 
 CenterFilterAnim.onclick = (() => {
-    if (setting.filters == 'outsde') {
+    if (setting.filters == 'outside') {
         if (filterOnOff.centerFilter) {
             filterOnOff.centerFilter = false
             centerFilter.style.top = '7vh'
@@ -1464,7 +1647,7 @@ CenterFilterAnim.onclick = (() => {
 })
 // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ //
 
-function settings() {
+function settings(rId) {
     // filters //
     if (setting.filters == 'outside') {
         GeneralBody.append(FilterBox)
@@ -1483,7 +1666,7 @@ function settings() {
         CenterFilterAnim.innerHTML = '▲'
         mainAnim.style.height = '80vh'
     } else {
-        AsideScroll.append(FilterBox, SettingPosition, SettingDesign)
+        AsideScroll.append(FilterBox, SettingPosition, SettingDesign, SettingTheme)
         FilterBox.classList.add('center-filter2')
         FilterBox.classList.remove('center-filter')
         FilterCheckBox.forEach(element => {
@@ -1497,15 +1680,426 @@ function settings() {
         CenterFilterAnim.style.top = '12vh'
         CenterFilterAnim.innerHTML = '▲'
     }
-    // filters esc //
+    document.querySelectorAll('input[name="filters"]').forEach((radio, rId2) => {
+        if (radio.value == setting.filters) {
+            radio.checked = true;
+        }
+    });
+    syncSettings(true);
 }
 
 settings()
 
-document.querySelectorAll('input[name="filters"]').forEach(radio => {
+document.querySelectorAll('input[name="filters"]').forEach((radio, rId) => {
     radio.addEventListener('change', () => {
-        console.log(`Выбрано: ${radio.value}`);
         setting.filters = radio.value
         settings()
     });
+});
+
+function themeSetting() {
+    if (setting.theme == 'Classic') {
+        document.documentElement.style.setProperty('--header', '#002e36');
+        document.documentElement.style.setProperty('--center-filter', '#002e361f');
+        document.documentElement.style.setProperty('--center-filter-anim', '#002e363d');
+        document.documentElement.style.setProperty('--center-filter-anim-hover', '#002e368c');
+        document.documentElement.style.setProperty('--custom-checkbox', '#002e36dc');
+        document.documentElement.style.setProperty('--but-main-canter-hover', '#004f6c');
+        document.documentElement.style.setProperty('--but-main-canter', '#0085b3');
+        document.documentElement.style.setProperty('--aside', '#00272e');
+        document.documentElement.style.setProperty('--theme', '#00252c');
+        document.documentElement.style.setProperty('--theme-box', '#002229');
+        document.documentElement.style.setProperty('--light-gray', '#7c7c7c');
+        document.documentElement.style.setProperty('--drag-gray', '#2b2a2a');
+        document.documentElement.style.setProperty('--main', '#f8f8f8');
+        document.documentElement.style.setProperty('--tab', '#ffffff');
+        document.documentElement.style.setProperty('--tab-local', '#f2f2f2');
+        document.documentElement.style.setProperty('--tab-border', '#ccd5de');
+        document.documentElement.style.setProperty('--tab-bottom', '#e6e6e6');
+        document.documentElement.style.setProperty('--bottom-border-Important', '#808080');
+        document.documentElement.style.setProperty('--white-black', '#000000');
+        document.documentElement.style.setProperty('--status', '#1a1a1a');
+        document.documentElement.style.setProperty('--bottom-tab', '#1f1f1f');
+    } else if (setting.theme == 'Dark') {
+        document.documentElement.style.setProperty('--header', '#1b1b1b');
+        document.documentElement.style.setProperty('--center-filter', '#ececec1f');
+        document.documentElement.style.setProperty('--center-filter-anim', '#5e5e5e3d');
+        document.documentElement.style.setProperty('--center-filter-anim-hover', '#3131318c');
+        document.documentElement.style.setProperty('--custom-checkbox', '#1b1b1b');
+        document.documentElement.style.setProperty('--but-main-canter-hover', '#004f6c');
+        document.documentElement.style.setProperty('--but-main-canter', '#0085b3');
+        document.documentElement.style.setProperty('--aside', '#2b2b2b');
+        document.documentElement.style.setProperty('--theme', '#1a1a1a');
+        document.documentElement.style.setProperty('--theme-box', '#1b1b1b');
+        document.documentElement.style.setProperty('--light-gray', '#bebebe');
+        document.documentElement.style.setProperty('--drag-gray', '#ffffff');
+        document.documentElement.style.setProperty('--main', '#222222');
+        document.documentElement.style.setProperty('--tab', '#1f1f1f');
+        document.documentElement.style.setProperty('--tab-local', '#181818');
+        document.documentElement.style.setProperty('--tab-border', '#1b1b1bbd');
+        document.documentElement.style.setProperty('--tab-bottom', '#3d3c3c');
+        document.documentElement.style.setProperty('--bottom-border-Important', '#808080');
+        document.documentElement.style.setProperty('--white-black', '#a1a1a1');
+        document.documentElement.style.setProperty('--status', '#bebebe');
+        document.documentElement.style.setProperty('--bottom-tab', '#c2c2c2');
+    } else if (setting.theme == 'Poisonous') {
+        document.documentElement.style.setProperty('--header', '#00a16c');
+        document.documentElement.style.setProperty('--center-filter', '#00a16c1f');
+        document.documentElement.style.setProperty('--center-filter-anim', '#00a16c3d');
+        document.documentElement.style.setProperty('--center-filter-anim-hover', '#00a16c8c');
+        document.documentElement.style.setProperty('--custom-checkbox', '#00a16c');
+        document.documentElement.style.setProperty('--but-main-canter-hover', '#00a16c');
+        document.documentElement.style.setProperty('--but-main-canter', '#00a16c');
+        document.documentElement.style.setProperty('--aside', '#004730');
+        document.documentElement.style.setProperty('--theme', '#1b1b1bbd');
+        document.documentElement.style.setProperty('--theme-box', '#00a16c');
+        document.documentElement.style.setProperty('--light-gray', '#006845');
+        document.documentElement.style.setProperty('--drag-gray', '#ffffff');
+        document.documentElement.style.setProperty('--main', '#202020');
+        document.documentElement.style.setProperty('--tab', '#004730');
+        document.documentElement.style.setProperty('--tab-local', '#003d2a');
+        document.documentElement.style.setProperty('--tab-border', '#1b1b1bbd');
+        document.documentElement.style.setProperty('--tab-bottom', '#00a16c');
+        document.documentElement.style.setProperty('--bottom-border-Important', '#ffffff94');
+        document.documentElement.style.setProperty('--white-black', '#ffffff');
+        document.documentElement.style.setProperty('--status', '#ffffff');
+        document.documentElement.style.setProperty('--bottom-tab', '#ececec');
+    }
+}
+
+
+let themeBoxH = document.querySelectorAll('.theme-box h3')
+let themeBoxS = document.querySelectorAll('.theme-box span')
+
+function spanChang(id) {
+    themeBoxH = document.querySelectorAll('.theme-box h3')
+    themeBoxS = document.querySelectorAll('.theme-box span')
+    themeBoxS.forEach((element) => {
+        element.innerHTML = ''
+    });
+    themeBoxS.forEach((element, ids) => {
+        if (id == ids) {
+            element.innerHTML = '✔'
+        }
+    });
+}
+
+function h3S() {
+    themeBoxH.forEach((element, id) => {
+        if (setting.theme == element.innerHTML.split('<')[0].trim()) {
+            spanChang(id)
+        }
+    });
+}
+h3S()
+function h3Chang(id) {
+    setting.theme = themeBoxH[id].textContent.trim();
+    h3S();
+    themeSetting();
+    syncSettings(true); // сохраняем
+}
+
+
+let themeBox = document.querySelectorAll('.theme-box')
+
+themeBox.forEach((box, id) => {
+    box.addEventListener('click', () => {
+        h3Chang(id);
+    });
+});
+themeSetting()
+
+// histary ▼ histary ▼ histary ▼ histary ▲ histary ▼ histary ▼ histary // 
+// let historyCheckbox = document.querySelector('.history-checkbox')
+
+// let historyMassivTab = []
+// let companyHistori = []
+
+// let historyMassiv = JSON.parse(localStorage.getItem('historyMassiv2')) || [];
+// let textHistary = document.querySelector('.text-histary')
+
+// function saveToHistory() {
+//     const now = new Date();
+//     const formatted = now.toLocaleString();
+
+//     cleanOldHistory();
+//     // Добавляем текущую копию masivfilter с меткой времени
+//     historyMassiv.push({
+//         timestamp: now.getTime(), // сохраняется для расчёта "24 часа"
+//         datetime: now.toLocaleString(), // читаемая дата и время
+//         data: [...generalMasiv] // или structuredClone(masivfilter), если вложенные объекты
+//     });
+
+//     // Удаляем записи старше 24 часов (86400000 мс)
+
+//     localStorage.setItem('historyMassiv2', JSON.stringify(historyMassiv));
+// }
+
+// function cleanOldHistory() {
+//     const now = Date.now();
+//     historyMassiv = historyMassiv.filter(entry => now - entry.timestamp <= 36000000);
+//     localStorage.setItem('historyMassiv2', JSON.stringify(historyMassiv));
+
+// }
+
+// // Запускаем каждые 5 минут
+// setInterval(saveToHistory, 1 * 60 * 1000);
+
+// const dateInputs = document.querySelectorAll('.data-time-histary input[type="date"]');
+// const timeInputs = document.querySelectorAll('.data-time-histary input[type="time"]');
+// const nameInput = document.querySelector('.data-time-histary .name-filter');
+// // const textHistary = document.querySelector('.text-histary');
+
+// const dateFromInput = dateInputs[0];
+// const dateToInput = dateInputs[1];
+// const timeFromInput = timeInputs[0];
+// const timeToInput = timeInputs[1];
+
+// // let historyMassivTab = [];
+
+// function pad(n) {
+//     return n.toString().padStart(2, '0');
+// }
+
+// function setCurrentDateTimeInputs() {
+//     const now = new Date();
+//     const earlier = new Date(now.getTime() - 5 * 60 * 1000);
+
+//     const formatDate = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+//     const formatTime = d => `${pad(d.getHours())}:${pad(d.getMinutes() + 1)}`;
+
+//     dateFromInput.value = formatDate(earlier);
+//     dateToInput.value = formatDate(now);
+//     timeFromInput.value = formatTime(earlier);
+//     timeToInput.value = formatTime(now);
+// }
+
+// function searchHistoryByDateTimeAndName() {
+//     const fromDate = dateFromInput.value;
+//     const toDate = dateToInput.value;
+//     const fromTime = timeFromInput.value;
+//     const toTime = timeToInput.value;
+//     const nameFilter = nameInput.value.trim().toLowerCase();
+
+//     if (!fromDate || !toDate || !fromTime || !toTime) return;
+
+//     const fromTimestamp = new Date(`${fromDate}T${fromTime}`).getTime();
+//     const toTimestamp = new Date(`${toDate}T${toTime}`).getTime();
+
+//     const matches = historyMassiv.filter(entry => {
+//         return entry.timestamp >= fromTimestamp && entry.timestamp <= toTimestamp;
+//     });
+
+//     historyMassivTab = [];
+
+//     matches.forEach(entry => {
+//         const filteredData = entry.data.filter(el => {
+//             if (nameFilter.length < 2) return true; // не фильтруем по имени, если менее 2 символов
+//             return el.name.toLowerCase().includes(nameFilter);
+//         });
+
+//         if (filteredData.length > 0) {
+//             historyMassivTab.push({
+//                 datetime: entry.datetime,
+//                 timestamp: entry.timestamp, // добавляем для сортировки
+//                 data: filteredData
+//             });
+//         }
+//     });
+
+//     CreatHistary();
+// }
+
+// function CreatHistary() {
+//     historyMassivTab.sort((b, a) => a.timestamp - b.timestamp);
+//     textHistary.innerHTML = '';
+
+//     let queryPost = 0
+
+//     if (historyMassivTab.length === 0) {
+//         textHistary.innerHTML = '<p>No matching entries found.</p>';
+//         return;
+//     }
+
+//     historyMassivTab.forEach(history => {
+//         // Выводим дату/время сохранения
+//         // textHistary.innerHTML += ``;
+//         history.data.forEach(element => {
+//             if (queryPost < 30) {
+//                 textHistary.innerHTML += `
+//                 <div class="block-history">
+//                 <h5 class="history-timestamp">Saved at: <span>${history.datetime}</span></h5>
+//                 <h4>Company: <span>${element.company}</span></h4>
+//                 <h5>Name: <span>${element.name}</span></h5>
+//                 <h5>Status: <span>${element.statusAnd}</span></h5>
+//                 <h5>From Time: <span>${element.fromTime}</span></h5>
+//                 <h5>Till Time: <span>${element.tillTime}</span></h5>
+//                 <h5>Long Island: <span>${element.LongIsland}</span></h5>
+//                 <h5>Local: <span>${element.location}</span></h5>
+//                 <h5>Queue: <span>${element.queue}</span></h5>
+//                 <h5 class="notesHistary">Notes: <span>${element.bottomTabText}</span></h5>
+//                 <br><hr>
+//                 </div>
+//                 `;
+//                 queryPost += 1
+//             }
+//         });
+//     });
+
+// }
+
+// // Слушатели
+// [
+//     dateFromInput,
+//     dateToInput,
+//     timeFromInput,
+//     timeToInput,
+//     nameInput
+// ].forEach(input => {
+//     input.addEventListener('input', searchHistoryByDateTimeAndName);
+// });
+
+// // Старт
+// setCurrentDateTimeInputs();
+// searchHistoryByDateTimeAndName();
+// cleanOldHistory()
+// window.addEventListener('load', () => {
+//     cleanOldHistory();
+// });
+// histary ▲ histary ▲ histary ▲ histary ▲ histary ▲ histary ▲ histary //
+
+// Comfort Filter ▼//
+
+document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.getElementById("mySliderComfort");
+    const valueDisplay = document.getElementById("slider-Comfort-value");
+    const overlay = document.querySelector(".comford");
+
+    function applyComfortFilter(value) {
+        value = parseFloat(value);
+        if (value === 0) {
+            overlay.style.opacity = 0;
+        } else {
+            overlay.style.opacity = value;
+        }
+    }
+
+    const saved = localStorage.getItem("comfort-filter");
+    if (saved !== null) {
+        slider.value = saved;
+        valueDisplay.textContent = saved;
+        applyComfortFilter(saved);
+    }
+
+    slider.addEventListener("input", () => {
+        const value = slider.value;
+        valueDisplay.textContent = value;
+        localStorage.setItem("comfort-filter", value);
+        applyComfortFilter(value);
+    });
+});
+
+// Comfort Filter ▲ //
+
+// sign up //
+
+// Проверка: уже авторизован?
+let navbar = document.querySelector('.navbar')
+let creatDivs = document.querySelector('.creat-div')
+let addCompanyButs = document.querySelector('.add-company-but')
+let adminss = document.querySelector('.admins')
+window.addEventListener("DOMContentLoaded", () => {
+    const savedRole = localStorage.getItem("role");
+
+    if (savedRole === "admin") {
+        navbar.style.display = 'none'
+        adminss.innerHTML = 'A'
+        // window.location.href = "admin-dashboard.html";
+    } else if (savedRole === "user") {
+        navbar.style.display = 'none'
+        addCompanyButs.style.display = 'none'
+        creatDivs.style.display = 'none'
+        adminss.innerHTML = 'R'
+        // window.location.href = "user-dashboard.html";
+    }
+});
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const message = document.getElementById("message");
+
+    // Очистить сообщение
+    message.textContent = "";
+    message.className = "error-message";
+
+    // Проверка на пустые поля
+    if (username === "" || password === "") {
+        message.textContent = "Заполните все поля!";
+        return;
+    }
+
+    // Проверка для Работника
+    if (username === "Unitedteam" && password === "unitedteam") {
+        localStorage.setItem("role", "user");
+        message.className = "success-message";
+        message.textContent = "Успешный вход как Работник!";
+        navbar.style.display = 'none'
+        addCompanyButs.style.display = 'none'
+        creatDivs.style.display = 'none'
+        adminss.innerHTML = 'R'
+        // window.location.href = "user-dashboard.html";
+        return;
+    }
+
+    // Проверка для Админа
+    if (username === "AdminUnitedTeam" && password === "unitedteam20") {
+        localStorage.setItem("role", "admin");
+        message.className = "success-message";
+        message.textContent = "Успешный вход как Админ!";
+        navbar.style.display = 'none'
+        addCompanyButs.style.display = 'block'
+        creatDivs.style.display = 'block'
+        adminss.innerHTML = 'A'
+        // window.location.href = "admin-dashboard.html";
+        return;
+    }
+
+    // Если логин или пароль неверный
+    message.textContent = "Неверный логин или пароль!";
+});
+let holdTimers = null;
+
+// Время анимации — 500ms (должно совпадать с CSS)
+const animationDuration2 = 2000;
+
+function longPressAction2() {
+    navbar.style.display = 'block'
+    
+}
+
+adminss.addEventListener('mousedown', () => {
+    holdTimers = setTimeout(() => {
+        longPressAction2();
+    }, animationDuration2);
+});
+
+adminss.addEventListener('mouseup', () => {
+    clearTimeout2(holdTimers); // Если отпустил раньше — сброс
+});
+
+adminss.addEventListener('mouseleave', () => {
+    clearTimeout2(holdTimers); // Если ушёл курсором — сброс
+});
+
+// Для мобильных:
+adminss.addEventListener('touchstart', () => {
+    holdTimers = setTimeout(() => {
+        longPressAction2();
+    }, animationDuration2);
+});
+
+adminss.addEventListener('touchend', () => {
+    clearTimeout2(holdTimers);
 });
