@@ -1,9 +1,22 @@
 let mainTab = document.querySelector('.main-tab')
+
+
+
+
+const RELOAD_INTERVAL_MINUTES = 5; // ← здесь задаёшь интервал (в минутах)
+
 document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "visible") {
-        location.reload();
+        const lastReload = localStorage.getItem("lastReloadTime");
+        const now = Date.now();
+
+        if (!lastReload || now - parseInt(lastReload, 10) > RELOAD_INTERVAL_MINUTES * 60 * 1000) {
+            localStorage.setItem("lastReloadTime", now.toString());
+            location.reload();
+        }
     }
 });
+
 /////////////////////// хранилище ///////////////////////
 
 let generalMasiv = []
@@ -1268,7 +1281,7 @@ function start() {
             // start()
         })
         QueueLeftClear.onclick = (() => {
-            updateData(input.idPass, { queueColor: '', }, input.name )
+            updateData(input.idPass, { queueColor: '', }, input.name)
             // start()
         })
         // let mainsClick = document.querySelector('main')
